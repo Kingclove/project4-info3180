@@ -1,0 +1,13 @@
+CACHE MANIFEST
+
+manifest.appcache
+static/cards.js
+static/jquery.js
+static/cards.css
+
+
+FALLBACK:
+
+
+NETWORK:
+*
