@@ -1,8 +1,22 @@
 window.onload = function(){
-    turns = 0;
-    var deck = createDeck();
-    showDeck(deck);
-    layout_cards();
+    allowed_turns= 26;
+    if (localStorage.game_state == null) {
+        turns = 0;
+        var deck = createDeck();
+        showDeck(deck);
+        layout_cards();
+        set_controls();
+        turns_counter();
+        console.log("Part A");
+    } else{
+        set_controls();
+
+        $('.sideBox').html(localStorage.game_state);
+        turns = parseInt(localStorage.turns);
+        console.log("Part B");
+        turns_counter();
+    };
+    
 
     $( ".cover" ).click(function() {
         flipcard($(this));
@@ -10,7 +24,7 @@ window.onload = function(){
 
 }
 
-var createDeck = function() {
+function createDeck() {
 // based on code from http://www.brainjar.com/js/cards/default2.asp
     var ranks = ["A", "K" , "Q", "J"]; // Limit to royals.
     var suits = ["♣", "♦", "♥", "♠"]; // Add the unicode signs of the cards eg. ♠,♥,♦,♣
@@ -38,7 +52,7 @@ var createDeck = function() {
 
 // creates the card divs and adds them to side box. Also adds class
 // Card is also given id. 
-var showCards = function(cardJSON, card_num) {
+function showCards(cardJSON, card_num) {
     txt = cardJSON.rank + cardJSON.suite;    
     card = document.createElement("div");
     card2 = document.createElement("div");
@@ -66,14 +80,14 @@ var showCards = function(cardJSON, card_num) {
     document.querySelector(".sideBox").appendChild(card2);
 }
 
-var showDeck = function(deck){
+function showDeck(deck){
     var idx;
     for (idx = 0; idx < deck.length; ++idx) {
             showCards(deck[idx], idx);
     }
 }
 // Arranges the cards on the document and creates covers for them
-var layout_cards= function(){
+function layout_cards(){
     var  cards = [].slice.call(document.getElementsByClassName('card'));
     console.log(cards);
     var shuffled = shuffle(cards);
@@ -94,9 +108,17 @@ var layout_cards= function(){
             index++;
         };
     };
+
+    if (localStorage.attempts== null) {
+        localStorage.attempts= 1;
+    } else{
+        localStorage.attempts = parseInt(localStorage.attempts)+1;
+    };
+
+   
 }
 
-var flipcard=function(e){
+function flipcard(e){
     
     console.log(e);
     classes= e.attr('class').match(/[\d\w-_]+/g);
@@ -108,7 +130,7 @@ var flipcard=function(e){
     
 }
 // Used to shuffle cards into position
-var shuffle= function(list){
+function shuffle(list){
     for (var i = list.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var temp = list[i];
@@ -118,7 +140,7 @@ var shuffle= function(list){
     return list;
 }
 
-var checkmatch=function(){
+function checkmatch(){
     var check= $('.flipped');
     if (check.length>=2) {
         
@@ -140,14 +162,18 @@ var checkmatch=function(){
             $('.flippedcover').removeClass('flippedcover');
         }
 
-        turns = turns+1 // use local storage for this
-        if (turns>=26) {
+        turns = turns+1;
+        turns_counter();
+        if (turns>=allowed_turns) {
             alert("You lose!!!");
             turns = 0;
             $(".sideBox").html('');
+            turns = 0;
             var deck = createDeck();
             showDeck(deck);
             layout_cards();
+            set_controls();
+            console.log("Part A");
 
             $( ".cover" ).click(function() {
                 flipcard($(this));
@@ -156,4 +182,29 @@ var checkmatch=function(){
     };
     
 
+}
+
+function set_controls () {
+    if (localStorage.username == null) {
+        var userstuff = "<h2>Enter your name</h2><input type='text' id='name'></input><button type='button' onclick='submit_name();'>Submit</button>";
+        $("#user_info").html(userstuff);
+    } else{
+        $("#user_info").html("<h2>Welcome "+localStorage.username+"!</h2");
+    };
+     $('#attempt_info').html("This is attmpt # "+localStorage.attempts);
+     turns_counter();
+}
+
+function submit_name () {
+   localStorage.username=  $("#name").val();
+   $("#user_info").html("<h2>Welcome "+localStorage.username+"!</h2");
+}
+
+function save_game() {
+    localStorage.game_state = $('.sideBox').html();
+    localStorage.turns= turns;
+}
+
+function turns_counter () {
+    $('.remains').html(allowed_turns-turns);
 }
