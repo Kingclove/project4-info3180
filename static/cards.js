@@ -121,6 +121,7 @@ function layout_cards(){
 function flipcard(e){
     
     console.log(e);
+    $('.flip').get(0).play();
     classes= e.attr('class').match(/[\d\w-_]+/g);
     card_id= classes[1];
     e.addClass('flippedcover');
@@ -152,6 +153,7 @@ function checkmatch(){
         id2=card2.className.match(/[\d\w-_♣♦♥♠]+/g)[1];
         console.log(id2);
         if (id1==id2) {
+            $('.ping').get(0).play();
             $('.flipped').addClass('permflipped');
             $('.permflipped').removeClass('flipped');
             $('.flippedcover').addClass('permflippedcover');
@@ -161,7 +163,7 @@ function checkmatch(){
             $(".flipped").removeClass('flipped');
             $('.flippedcover').removeClass('flippedcover');
         }
-
+        win_check();
         turns = turns+1;
         turns_counter();
         if (turns>=allowed_turns) {
@@ -207,4 +209,19 @@ function save_game() {
 
 function turns_counter () {
     $('.remains').html(allowed_turns-turns);
+}
+
+function win_check() {
+    if ($('.permflippedcover').length ==$('.card').length) {
+            $('.clap').get(0).play();
+            console.log('You win!');
+            turns = 0;
+            $(".sideBox").html('');
+            turns = 0;
+            var deck = createDeck();
+            showDeck(deck);
+            layout_cards();
+            set_controls();
+            console.log("Part A");
+    };
 }

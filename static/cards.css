@@ -4,7 +4,18 @@ body {
   background: white;
 }
 
-
+#controls{
+	position: relative;
+	vertical-align: top;
+	width: 20em;
+	height: 40em;
+	border:1px solid black ;
+	display: inline-block;
+}
+.sidebox{
+	position: relative;
+	display: inline-block;
+}
 .card{
 	background:white;
 	display: inline-block;
