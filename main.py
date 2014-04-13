@@ -30,5 +30,5 @@ def multiplayer(name=None):
 @app.route('/playernames')
 def names(name=None):
   """ Return hello template at application root URL."""
-  return render_template('playername.html', name=name)
+  return render_template('playernames.html', name=name)
 
