@@ -156,3 +156,14 @@ div[class*='suit']:after {
     -webkit-transform: rotatey(180deg);
     opacity: 0;
 }
+
+.playerinfo{
+	display: inline-block;
+	width: 7.5em;
+}
+
+
+.playingplayer{
+	background-color: #77FFAA;
+
+}

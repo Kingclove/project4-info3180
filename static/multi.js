@@ -1,27 +1,32 @@
 window.onload = function(){
-    allowed_turns= 26;
-    if (localStorage.game_state == null) {
-        turns = 0;
-        var deck = createDeck();
-        showDeck(deck);
-        layout_cards();
-        set_controls();
-        turns_counter();
-        console.log("Part A");
-    } else{
-        set_controls();
+	var deck = createDeck();
+    setnames();
+	showDeck(deck);
+	layout_cards();
+    player1score= 0;
+    player2score= 0;
 
-        $('.sideBox').html(localStorage.game_state);
-        turns = parseInt(localStorage.turns);
-        console.log("Part B");
-        turns_counter();
-    };
-    
-
+    whos_turn = true;
+    changeturn();
     $( ".cover" ).click(function() {
         flipcard($(this));
     });
+}
 
+function window_setup(){
+    $(".sideBox").html('');
+    var deck = createDeck();
+    setnames();
+    showDeck(deck);
+    layout_cards();
+    player1score= 0;
+    player2score= 0;
+    updatescores();
+    whos_turn = true;
+    changeturn();
+    $( ".cover" ).click(function() {
+        flipcard($(this));
+    });
 }
 
 function createDeck() {
@@ -118,6 +123,24 @@ function layout_cards(){
    
 }
 
+function shuffle(list){
+    for (var i = list.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = list[i];
+        list[i] = list[j];
+        list[j] = temp;
+    }
+    return list;
+}
+
+function setnames () {
+    playernames = JSON.parse(localStorage.playernames);
+    dog = (playernames);
+    $("#playername1").text(playernames.player1);
+    $("#playername2").text(playernames.player2);
+}
+
+
 function flipcard(e){
     
     console.log(e);
@@ -128,17 +151,9 @@ function flipcard(e){
     $('#'+card_id).addClass('flipped');
     console.log("class changed");
     setTimeout(checkmatch, 700);
+    console.log("Changing turns");
     
-}
-// Used to shuffle cards into position
-function shuffle(list){
-    for (var i = list.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = list[i];
-        list[i] = list[j];
-        list[j] = temp;
-    }
-    return list;
+    
 }
 
 function checkmatch(){
@@ -158,84 +173,81 @@ function checkmatch(){
             $('.permflipped').removeClass('flipped');
             $('.flippedcover').addClass('permflippedcover');
             $('.permflippedcover').removeClass('flippedcover');
+            if (whos_turn) {
+                player1score++;
+            } else{
+                player2score++;
+            };
+            updatescores();
 
         }else{
             $(".flipped").removeClass('flipped');
             $('.flippedcover').removeClass('flippedcover');
+            whos_turn= (!whos_turn);
+            changeturn();
         }
         win_check();
-        turns = turns+1;
-        turns_counter();
-        if (turns>=allowed_turns) {
-            alert("You lose!!!");
-            turns = 0;
-            $(".sideBox").html('');
-            turns = 0;
-            var deck = createDeck();
-            showDeck(deck);
-            layout_cards();
-            set_controls();
-            console.log("Part A");
-
-            $( ".cover" ).click(function() {
-                flipcard($(this));
-            });
-        };
+        
+        
+        
     };
     
-
 }
 
-function set_controls () {
-    if (localStorage.username == null) {
-        var userstuff = "<h2>Enter your name</h2><input type='text' id='name'></input><button type='button' onclick='submit_name();'>Submit</button>";
-        $("#user_info").html(userstuff);
+function changeturn(){
+    if (whos_turn) {
+        $('#player1').addClass('playingplayer');
+        $('#player2').removeClass('playingplayer');
     } else{
-        $("#user_info").html("<h2>Welcome "+localStorage.username+"!</h2");
+        $('#player2').addClass('playingplayer');
+        $('#player1').removeClass('playingplayer');
     };
-     $('#attempt_info').html("This is attmpt # "+localStorage.attempts);
-     turns_counter();
 }
 
-function submit_name () {
-   localStorage.username=  $("#name").val();
-   $("#user_info").html("<h2>Welcome "+localStorage.username+"!</h2");
-}
-
-function save_game() {
-    localStorage.game_state = $('.sideBox').html();
-    localStorage.turns= turns;
-}
-
-function turns_counter () {
-    $('.remains').html(allowed_turns-turns);
+function updatescores(){
+    $("#player1score").text(player1score);
+    $("#player2score").text(player2score);
 }
 
 function win_check() {
     if ($('.permflippedcover').length ==$('.card').length) {
             $('.clap').get(0).play();
-            console.log('You win!');
-            turns = 0;
-            $(".sideBox").html('');
-            turns = 0;
-            var deck = createDeck();
-            showDeck(deck);
-            layout_cards();
-            set_controls();
-            console.log("Part A");
+            if (player1score>player2score) {
+                alert("Player 1 Wins");
+            };
+            if (player2score>player1score) {
+                alert("Player 2 Wins");
+            }else{
+                alert("Its a draw");
+            }
+
+            window_setup();
+
     };
+}
+
+function save_game() {
+    localStorage.game_state = $('.sideBox').html();
+    localStorage.player1score = player1score;
+    localStorage.player2score = player2score
 }
 
 function load_game(){
 
-    set_controls();
+    
     $('.sideBox').html(localStorage.game_state);
-    turns = parseInt(localStorage.turns);
-    console.log("Part B");
-    turns_counter();
-
+    var deck = createDeck();
+    setnames();
+    showDeck(deck);
+    layout_cards();
+    player1score= parseInt(localStorage.player1score);
+    player2score= parseInt(localStorage.player2score);
+    updatescores();
+    whos_turn = true;
+    changeturn();
     $( ".cover" ).click(function() {
         flipcard($(this));
     });
+
 
 }
