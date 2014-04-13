@@ -13,10 +13,22 @@ app = Flask(__name__.split('.')[0])
 
 
 @app.route('/')
-def start_game(name=None):
+def menu(name=None):
   """ Return hello template at application root URL."""
   return render_template('menu.html', name=name)
 
+@app.route('/cards')
+def oneplayer(name=None):
+  """ Return hello template at application root URL."""
+  return render_template('cards.html', name=name)
 
+@app.route('/multi')
+def multiplayer(name=None):
+  """ Return hello template at application root URL."""
+  return render_template('multi.html', name=name)
 
+@app.route('/playernames')
+def names(name=None):
+  """ Return hello template at application root URL."""
+  return render_template('playername.html', name=name)
 
