@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Online Play</title>
+	<link rel="stylesheet" href="">
+
+	<!-- <script>
+	    channel = new goog.appengine.Channel('{{ values.token }}');
+	    socket = channel.open();
+	    socket.onopen = onOpened;
+	    socket.onmessage = onMessage;
+	    socket.onerror = onError;
+	    socket.onclose = onClose;
+	</script> -->
+	<script>
+		window.onload = function(){
+			sessionStorage.opponent ="{{values.opponent}}" 
+		    var chatbutton = document.getElementById("newchat");
+		    var namebox = document.getElementById("name");
+		    chatbutton.addEventListener("click", function(event) {
+		         event.preventDefault();
+		         name = namebox.value;
+		         window.location.href = chatbutton.href + "/guest/" + name;
+		           
+		    });
+		    
+		}
+	</script>
+
+</head>
+<body>
+	<div class="container">
+    
+  <h2>Hey you. Yea you~~ .</h2>
+        <p>You're seeing this page because 
+      someone invited you to play</p>
+        
+    
+    Enter your name <input type="text" id="name"/> to start chatting
+        <a id="newchat" class="btn btn-primary" href="{{ values.roomid }}">Join chat</a>
+
+  </div>
+</body>
+</html>

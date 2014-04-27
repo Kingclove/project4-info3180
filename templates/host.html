@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Play</title>
+    <script type="text/javascript" src="/_ah/channel/jsapi"></script>
+    <!-- <script src="{{ url_for('static',filename='script.js') }}"></script> -->
+    <script>
+        window.onload=function(){
+
+        var chaturl = document.getElementById("chaturl");
+        var baseurl = "{{ request.host_url }}{{values.roomid}}/{{values.roomid}}/guest";
+        chaturl.value = baseurl;
+        }
+    </script>
+    <script>
+        channel = new goog.appengine.Channel('{{ values.token }}');
+        socket = channel.open();
+        socket.onopen = onOpened;
+        socket.onmessage = onMessage;
+        socket.onerror = onError;
+        socket.onclose = onClose;
+    </script>
+
+</head>
+<body>
+
+
+    <div class="container">
+        <a href="/">Go Home</a>
+        <div class="chatbox">
+            <p>Share this URL with your friend:</p>
+            <input id="chaturl" type="text" value=""/>
+        </div>
+    </div>
+
+
+</body>
+</html>
