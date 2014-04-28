@@ -60,7 +60,7 @@ def host_setup(roomid,name):
 
 
 @app.route('/<roomid>/<name>/guest')
-def guest_setup(roomid,name):
+def nameget(roomid,name):
     """Return a chat page"""
     template_values = {
                        "roomid":roomid,
@@ -71,7 +71,7 @@ def guest_setup(roomid,name):
 
 
 @app.route('/<roomid>/guest/<name>')
-def host_setup(roomid,name):
+def guest_setup(roomid,name):
     """Return a chat page"""
     token = channel.create_channel(name + roomid) 
     template_values = {

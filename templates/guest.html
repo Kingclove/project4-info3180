@@ -9,7 +9,7 @@
         window.onload=function(){
 
         var chaturl = document.getElementById("chaturl");
-        var baseurl = "{{ request.host_url }}{{values.roomid}}/{{values.yourname}}/guest";
+        var baseurl = "{{ request.host_url }}{{values.roomid}}/{{values.roomid}}/guest";
         chaturl.value = baseurl;
         }
     </script>
@@ -18,7 +18,7 @@
 </head>
 <body>
 
-    <h1>HOST</h1>
+    <h1>GUEST</h1>
     <div class="container">
         <a href="/">Go Home</a>
         <div class="chatbox">
@@ -37,4 +37,5 @@
         socket.onerror = onError;
         socket.onclose = onClose;
     </script>
+
 </html>

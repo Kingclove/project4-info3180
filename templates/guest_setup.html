@@ -4,8 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Online Play</title>
-	<link rel="stylesheet" href="">
-
+	<link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" />
 	<!-- <script>
 	    channel = new goog.appengine.Channel('{{ values.token }}');
 	    socket = channel.open();
@@ -14,20 +13,7 @@
 	    socket.onerror = onError;
 	    socket.onclose = onClose;
 	</script> -->
-	<script>
-		window.onload = function(){
-			sessionStorage.opponent ="{{values.opponent}}" 
-		    var chatbutton = document.getElementById("newchat");
-		    var namebox = document.getElementById("name");
-		    chatbutton.addEventListener("click", function(event) {
-		         event.preventDefault();
-		         name = namebox.value;
-		         window.location.href = chatbutton.href + "/guest/" + name;
-		           
-		    });
-		    
-		}
-	</script>
+	
 
 </head>
 <body>
@@ -43,4 +29,22 @@
 
   </div>
 </body>
+	<script>
+		window.onload = function(){
+			sessionStorage.opponent ="{{values.opponent}}" 
+		    var chatbutton = document.getElementById("newchat");
+		    var namebox = document.getElementById("name");
+		    chatbutton.addEventListener("click", function(event) {
+		         event.preventDefault();
+		         name = namebox.value;
+		         alert("{{ values.roomid }}" + "/guest/" + name);
+		         window.location.href = "../../../"+"{{ values.roomid }}" + "/guest/" + name;
+		           
+		    });
+		    
+		}
+	</script>
+
+
+
 </html>
