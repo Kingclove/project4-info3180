@@ -4,13 +4,13 @@
     <title>Online Play</title>
     <script type="text/javascript" src="/_ah/channel/jsapi"></script>
     <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" />
-    <!-- <script src="{{ url_for('static',filename='script.js') }}"></script> -->
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
     <script>
         window.onload=function(){
 
-        var chaturl = document.getElementById("chaturl");
-        var baseurl = "{{ request.host_url }}{{values.roomid}}/{{values.roomid}}/guest";
-        chaturl.value = baseurl;
+        var nameinfo = {"messageType":"name","content":sessionStorage.currentuser};
+        nameInfoFormat = JSON.stringify(nameinfo)
+        sendMessage(sessionStorage.opponent,"{{ values.roomid }}",nameInfoFormat);
         }
     </script>
     
@@ -19,13 +19,20 @@
 <body>
 
     <h1>GUEST</h1>
-    <div class="container">
+
+    <div id="container">
+        <p>Settting up game</p>
+    </div>
+
+
+
+    <!-- <div class="container">
         <a href="/">Go Home</a>
         <div class="chatbox">
             <p>Share this URL with your friend:</p>
             <input id="chaturl" type="text" value=""/>
         </div>
-    </div>
+    </div> -->
 
 
 </body>

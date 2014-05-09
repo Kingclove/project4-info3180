@@ -37,6 +37,7 @@
 		    chatbutton.addEventListener("click", function(event) {
 		         event.preventDefault();
 		         name = namebox.value;
+		         sessionStorage.currentuser = name;
 		         alert("{{ values.roomid }}" + "/guest/" + name);
 		         window.location.href = "../../../"+"{{ values.roomid }}" + "/guest/" + name;
 		           

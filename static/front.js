@@ -4,6 +4,7 @@ window.onload = function(){
     chatbutton.addEventListener("click", function(event) {
          event.preventDefault();
          name = namebox.value;
+         sessionStorage.currentuser = name;
          window.location.href = chatbutton.href + "/" + name;
          sessionStorage.removeItem("otheruser");
            

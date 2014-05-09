@@ -17,7 +17,22 @@
 
   </div>
 </body>
-<script src="{{ url_for('static',filename='front.js') }}"></script>
+
+<script>
+window.onload = function(){
+    var chatbutton = document.getElementById("newchat");
+    var namebox = document.getElementById("name");
+    chatbutton.addEventListener("click", function(event) {
+         event.preventDefault();
+         name = namebox.value;
+         sessionStorage.currentuser = name;
+         window.location.href = chatbutton.href + "/" + name;
+         sessionStorage.removeItem("otheruser");
+           
+    });
+    
+}
+</script>
 
 
 
