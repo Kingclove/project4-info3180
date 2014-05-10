@@ -52,7 +52,7 @@ def host_setup(roomid,name):
     token = channel.create_channel(name + roomid) 
     template_values = {
                        "roomid":roomid,
-                        "token": token,
+                        "token": channel.create_channel(name + roomid),
                         "yourname": name
                        }
     return render_template("host.html",values=template_values)
@@ -76,10 +76,12 @@ def guest_setup(roomid,name):
     token = channel.create_channel(name + roomid) 
     template_values = {
                        "roomid":roomid,
-                        "token": token,
+                        "token": channel.create_channel(name + roomid),
                         "yourname": name
                        }
     return render_template("guest.html",values=template_values)
+
+
 
 @app.route('/sendmessage/<user>/<roomid>', methods=['GET', 'POST'])
 def sendmessage(user,roomid):

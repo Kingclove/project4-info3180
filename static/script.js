@@ -1,8 +1,7 @@
-var onMessage = function(message) {\
+var onMessage = function(message) {
 	console.log("hello");
-//  themessage = JSON.stringify(message);
-  console.log("we have a message: " + message.data);
-  
+	console.log("we have a message: " + message.data);
+
 }
 
 
