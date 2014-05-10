@@ -1,7 +1,21 @@
+var onClose = function() {
+ alert("connection lost try to refresh");
+  }
+
+var onError = function() {
+ alert("we have an error"); 
+}
+
+
+
 var onMessage = function(message) {
 	console.log("hello");
 	console.log("we have a message: " + message.data);
 
+}
+
+var onOpened = function(){
+	console.log("Connection made");
 }
 
 
