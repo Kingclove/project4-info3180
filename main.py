@@ -81,7 +81,11 @@ def guest_setup(roomid,name):
                        }
     return render_template("guest.html",values=template_values)
 
-
+@app.route('/sendmessage/<user>/<roomid>', methods=['GET', 'POST'])
+def sendmessage(user,roomid):
+    """sends a message that is useless"""
+    message = request.form['message']
+    channel.send_message(user+roomid,message)
 
 def generate_id():
     """Return a game id"""
