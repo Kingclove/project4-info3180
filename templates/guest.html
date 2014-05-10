@@ -10,6 +10,7 @@
 
         var nameinfo = {"messageType":"name","content":sessionStorage.currentuser};
         nameInfoFormat = JSON.stringify(nameinfo)
+        console.log(nameInfoFormat);
         sendMessage(sessionStorage.opponent,"{{ values.roomid }}",nameInfoFormat);
         }
     </script>
