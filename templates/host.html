@@ -4,7 +4,9 @@
     <title>Online Play</title>
     <script type="text/javascript" src="/_ah/channel/jsapi"></script>
     <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static',filename='cards.css') }}" rel="stylesheet" />
     <script src="{{ url_for('static',filename='script.js') }}"></script>
+    <script src="{{ url_for('static',filename='onlineLogic.js') }}"></script>
     <script>
         window.onload=function(){
 
@@ -19,13 +21,16 @@
 <body>
 
     <h1>HOST</h1>
-    <div class="container">
-        <a href="/">Go Home</a>
-        <div class="chatbox">
-            <p>Share this URL with your friend:</p>
-            <input id="chaturl" type="text" value=""/>
+    <div id="sidebox">
+        <div class="container">
+            <a href="/">Go Home</a>
+            <div class="chatbox">
+                <p>Share this URL with your friend:</p>
+                <input id="chaturl" type="text" value=""/>
+            </div>
         </div>
     </div>
+    
 
 
 </body>

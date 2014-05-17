@@ -11,6 +11,9 @@ var onError = function() {
 var onMessage = function(message) {
 	console.log("hello");
 	console.log("we have a message: " + message.data);
+	console.log(JSON.parse(message.data));  //Testing parse
+
+	messageHandler(JSON.parse(message.data))
 
 }
 
@@ -26,3 +29,23 @@ var sendMessage = function(name,roomid,message) {
 	xhr.send("message="+message);
 	console.log("Request sent to main page");
 };
+
+
+var messageHandler = function(message){
+	switch(message.messageType){
+		case "name":
+			hostSetup();
+			break;
+		default:
+			console.log("Something went wrong");
+			break;
+	}
+}
+
+
+
+function hostSetup(){
+	var deck = createDeck();
+	showDeck(deck);
+	layout_cards();
+}
