@@ -24,7 +24,33 @@ function createDeck() {
     return cards;
 }
 
+function showCards(cardJSON, card_num) {
+    txt = cardJSON.rank + cardJSON.suite;    
+    card = document.createElement("div");
+    card2 = document.createElement("div");
+    card.innerHTML = "<p>"+cardJSON.rank+"</p>";
+    card2.innerHTML = "<p>"+cardJSON.rank+"</p>";
+    card.classList.add('card');
+    card2.classList.add('card');
+    card.classList.add(txt);
+    card2.classList.add(txt);
 
+    if (cardJSON.suite=='♥') {
+        card.classList.add('heart_suit');
+        card2.classList.add('heart_suit');
+    } else if(cardJSON.suite =='♦' ){
+        card.classList.add('diamond_suit');
+        card2.classList.add('diamond_suit');
+    }else if(cardJSON.suite =='♣'){
+        card.classList.add('club_suit');
+        card2.classList.add('club_suit');
+    }else{
+        card.classList.add('spade_suit');
+        card2.classList.add('spade_suit');
+    };
+    document.querySelector(".sideBox").appendChild(card);
+    document.querySelector(".sideBox").appendChild(card2);
+}
 
 function showDeck(deck){
     var idx;
