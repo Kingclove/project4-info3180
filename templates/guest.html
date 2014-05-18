@@ -40,9 +40,9 @@
             <input id="chaturl" type="text" value=""/>
         </div>
     </div> -->
-    <audio class = "clap" src="static/clap.wav" ></audio>
-    <audio class = 'flip' src="static/flip.wav" ></audio>
-    <audio class = 'ping' src="static/ping.wav" ></audio>
+    <audio class = "clap" src="{{ url_for('static',filename='clap.wav') }}" ></audio>
+    <audio class = 'flip' src="{{ url_for('static',filename='flip.wav') }}" ></audio>
+    <audio class = 'ping' src="{{ url_for('static',filename='ping.wav') }}" ></audio>
 
 </body>
     <script>
