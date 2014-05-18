@@ -115,6 +115,7 @@ function flipcard(e){
     e.addClass('flippedcover');
     $('#'+card_id).addClass('flipped');
     console.log("class changed");
+    sendBoard();
     setTimeout(checkmatch, 700);
     
 }
@@ -141,10 +142,19 @@ function checkmatch(){
         }else{
             $(".flipped").removeClass('flipped');
             $('.flippedcover').removeClass('flippedcover');
+            
         }
         // win_check();
         
     };
     
 
+}
+
+
+function sendBoard(){
+    var cards =$(".sideBox").html();
+    var boardinfo = {"messageType":"boardSetup","content":cards}
+    boardinfo = JSON.stringify(boardinfo);
+    sendMessage(sessionStorage.opponent,sessionStorage.roomid, boardinfo);
 }

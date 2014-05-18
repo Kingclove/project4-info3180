@@ -37,8 +37,9 @@ var messageHandler = function(message){
 			hostSetup(message);
 			break;
 		case "boardsetup":
-			guestSetup(message);
+			opponentSetup(message);
 			break;
+		
 		default:
 			console.log("Something went wrong");
 			break;
@@ -60,7 +61,8 @@ function hostSetup(message){
 	sendMessage(sessionStorage.opponent, sessionStorage.roomid, JSON.stringify(jsonMessage));
 }
 
-function guestSetup(message){
+function opponentSetup(message){
 	$(".sideBox").html(message.content);
-	clickSetter();
+	// clickSetter();
 }
+
