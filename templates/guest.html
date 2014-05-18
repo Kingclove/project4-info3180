@@ -4,14 +4,17 @@
     <title>Online Play</title>
     <script type="text/javascript" src="/_ah/channel/jsapi"></script>
     <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static',filename='cards.css') }}" rel="stylesheet" />
     <script src="{{ url_for('static',filename='script.js') }}"></script>
+    <script src="{{ url_for('static',filename='onlineLogic.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery.js') }}"></script>
     <script>
         window.onload=function(){
-
+        sessionStorage.roomid= "{{ values.roomid }}";
         var nameinfo = {"messageType":"name","content":sessionStorage.currentuser};
-        nameInfoFormat = JSON.stringify(nameinfo)
+        nameInfoFormat = JSON.stringify(nameinfo);
         console.log(nameInfoFormat);
-        sendMessage(sessionStorage.opponent,"{{ values.roomid }}",nameInfoFormat);
+        sendMessage(sessionStorage.opponent,sessionStorage.roomid,nameInfoFormat);
         }
     </script>
     
@@ -19,9 +22,12 @@
 </head>
 <body>
 
-    <h1>GUEST</h1>
+    <div id="controls">
+        <h1>GUEST</h1>
+    </div>
+    
 
-    <div id="container">
+    <div class="sideBox">
         <p>Settting up game</p>
     </div>
 
@@ -34,7 +40,9 @@
             <input id="chaturl" type="text" value=""/>
         </div>
     </div> -->
-
+    <audio class = "clap" src="static/clap.wav" ></audio>
+    <audio class = 'flip' src="static/flip.wav" ></audio>
+    <audio class = 'ping' src="static/ping.wav" ></audio>
 
 </body>
     <script>

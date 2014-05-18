@@ -86,3 +86,65 @@ function layout_cards(){
 
    
 }
+
+
+function shuffle(list){
+    for (var i = list.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = list[i];
+        list[i] = list[j];
+        list[j] = temp;
+    }
+    return list;
+}
+
+
+function clickSetter(){
+    $( ".cover" ).click(function() {
+        flipcard($(this));
+    });
+}
+
+
+function flipcard(e){
+    
+    console.log(e);
+    $('.flip').get(0).play();
+    classes= e.attr('class').match(/[\d\w-_]+/g);
+    card_id= classes[1];
+    e.addClass('flippedcover');
+    $('#'+card_id).addClass('flipped');
+    console.log("class changed");
+    setTimeout(checkmatch, 700);
+    
+}
+
+
+function checkmatch(){
+    var check= $('.flipped');
+    if (check.length>=2) {
+        
+        var card1= check[0];
+        console.log(card1);
+        id1=card1.className.match(/[\d\w-_♣♦♥♠]+/g)[1];
+        console.log(id1);
+        var card2 = check[1];
+        id2=card2.className.match(/[\d\w-_♣♦♥♠]+/g)[1];
+        console.log(id2);
+        if (id1==id2) {
+            $('.ping').get(0).play();
+            $('.flipped').addClass('permflipped');
+            $('.permflipped').removeClass('flipped');
+            $('.flippedcover').addClass('permflippedcover');
+            $('.permflippedcover').removeClass('flippedcover');
+
+        }else{
+            $(".flipped").removeClass('flipped');
+            $('.flippedcover').removeClass('flippedcover');
+        }
+        // win_check();
+        
+    };
+    
+
+}

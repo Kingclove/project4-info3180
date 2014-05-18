@@ -10,7 +10,7 @@ var onError = function() {
 
 var onMessage = function(message) {
 	console.log("hello");
-	console.log("we have a message: " + message.data);
+	console.log("we have a message: ");
 	console.log(JSON.parse(message.data));  //Testing parse
 
 	messageHandler(JSON.parse(message.data))
@@ -34,7 +34,10 @@ var sendMessage = function(name,roomid,message) {
 var messageHandler = function(message){
 	switch(message.messageType){
 		case "name":
-			hostSetup();
+			hostSetup(message);
+			break;
+		case "boardsetup":
+			guestSetup(message);
 			break;
 		default:
 			console.log("Something went wrong");
@@ -44,8 +47,20 @@ var messageHandler = function(message){
 
 
 
-function hostSetup(){
+function hostSetup(message){
+	sessionStorage.opponent = message.content;
+	$(".sideBox").html("");
 	var deck = createDeck();
 	showDeck(deck);
 	layout_cards();
+	clickSetter();
+	var board = $(".sideBox").html()
+	console.log(board);
+	var jsonMessage = {"messageType":"boardsetup","content":board}
+	sendMessage(sessionStorage.opponent, sessionStorage.roomid, JSON.stringify(jsonMessage));
+}
+
+function guestSetup(message){
+	$(".sideBox").html(message.content);
+	clickSetter();
 }
