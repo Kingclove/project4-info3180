@@ -56,10 +56,12 @@ function hostSetup(message){
 	var deck = createDeck();
 	showDeck(deck);
 	layout_cards();
+	console.log("hostSetup");
 	$('#player1').addClass('playingplayer');
 	$('#player2').removeClass('playingplayer');
 	clickSetter();
 	setnames();
+	myTurn = true;
 	var board = $(".sideBox").html()
 	console.log(board);
 	var jsonMessage = {"messageType":"boardSetup","content":board}
@@ -69,6 +71,8 @@ function hostSetup(message){
 function opponentSetup(message){
 	$(".sideBox").html(message.content);
 	$('.flip').get(0).play();
+	opponentScore = message.score;
+	updatescores();
 	setTimeout(checkmatch, 700);
 }
 
@@ -76,7 +80,9 @@ function opponentSetup(message){
 
 function yourTurn(message){
 	$(".sideBox").html(message.content);
+	console.log("yourTurn");
 	$('#player1').addClass('playingplayer');
 	$('#player2').removeClass('playingplayer');
+	myTurn= true;
 	clickSetter();
 }

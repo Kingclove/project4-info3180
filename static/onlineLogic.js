@@ -132,12 +132,18 @@ function checkmatch(){
         var card2 = check[1];
         id2=card2.className.match(/[\d\w-_♣♦♥♠]+/g)[1];
         console.log(id2);
+
         if (id1==id2) {
             $('.ping').get(0).play();
             $('.flipped').addClass('permflipped');
             $('.permflipped').removeClass('flipped');
             $('.flippedcover').addClass('permflippedcover');
             $('.permflippedcover').removeClass('flippedcover');
+            if (myTurn){
+                yourScore=yourScore+1;
+                updatescores();
+            }
+
 
         }else{
             $(".flipped").removeClass('flipped');
@@ -158,18 +164,24 @@ function setnames() {
     $("#playername2").text(sessionStorage.opponent);
 }
 
+function updatescores(){
+    $("#player1score").text(yourScore);
+    $("#player2score").text(opponentScore);
+}
+
 
 function sendBoard(){
     var cards =$(".sideBox").html();
-    var boardinfo = {"messageType":"boardSetup","content":cards}
+    var boardinfo = {"messageType":"boardSetup","content":cards,"score":yourScore}
     boardinfo = JSON.stringify(boardinfo);
     sendMessage(sessionStorage.opponent,sessionStorage.roomid, boardinfo);
 }
 
 function turnOver(){
-
+    myTurn=false;
     var cards =$(".sideBox").html();
     $(".sideBox").html(cards);
+    console.log("turnOver");
     $('#player2').addClass('playingplayer');
     $('#player1').removeClass('playingplayer');
     var boardinfo = {"messageType":"yourTurn","content":cards}
