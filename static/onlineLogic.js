@@ -148,8 +148,9 @@ function checkmatch(){
         }else{
             $(".flipped").removeClass('flipped');
             $('.flippedcover').removeClass('flippedcover');
-            turnOver();
-            
+            if (myTurn){
+                turnOver();
+            }
         }
         // win_check();
         

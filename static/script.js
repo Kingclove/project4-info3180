@@ -72,6 +72,7 @@ function opponentSetup(message){
 	$(".sideBox").html(message.content);
 	$('.flip').get(0).play();
 	opponentScore = message.score;
+	
 	updatescores();
 	setTimeout(checkmatch, 700);
 }

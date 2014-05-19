@@ -18,6 +18,8 @@
         yourScore=0;
         opponentScore=0;
         updatescores();
+        $('#player2').addClass('playingplayer');
+        $('#player1').removeClass('playingplayer');
         sendMessage(sessionStorage.opponent,sessionStorage.roomid,nameInfoFormat);
         }
     </script>
