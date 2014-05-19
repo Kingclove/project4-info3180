@@ -88,7 +88,8 @@ div[class*='suit']:after {
 
 .cover{
 	position: absolute;
-	background-image:url("{{ url_for('static',filename='pattern.jpg') }}");
+	background-image:url('pattern.jpg');
+	background-position: -1em -1em;
 	display: inline-block;
 	font-size: 4em;
 	width: 2em;
