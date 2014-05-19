@@ -142,6 +142,7 @@ function checkmatch(){
         }else{
             $(".flipped").removeClass('flipped');
             $('.flippedcover').removeClass('flippedcover');
+            turnOver();
             
         }
         // win_check();
@@ -152,9 +153,26 @@ function checkmatch(){
 }
 
 
+function setnames() {
+    $("#playername1").text(sessionStorage.currentuser);
+    $("#playername2").text(sessionStorage.opponent);
+}
+
+
 function sendBoard(){
     var cards =$(".sideBox").html();
     var boardinfo = {"messageType":"boardSetup","content":cards}
+    boardinfo = JSON.stringify(boardinfo);
+    sendMessage(sessionStorage.opponent,sessionStorage.roomid, boardinfo);
+}
+
+function turnOver(){
+
+    var cards =$(".sideBox").html();
+    $(".sideBox").html(cards);
+    $('#player2').addClass('playingplayer');
+    $('#player1').removeClass('playingplayer');
+    var boardinfo = {"messageType":"yourTurn","content":cards}
     boardinfo = JSON.stringify(boardinfo);
     sendMessage(sessionStorage.opponent,sessionStorage.roomid, boardinfo);
 }

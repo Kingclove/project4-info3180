@@ -14,6 +14,7 @@
         var nameinfo = {"messageType":"name","content":sessionStorage.currentuser};
         nameInfoFormat = JSON.stringify(nameinfo);
         console.log(nameInfoFormat);
+        setnames();
         sendMessage(sessionStorage.opponent,sessionStorage.roomid,nameInfoFormat);
         }
     </script>
@@ -24,6 +25,14 @@
 
     <div id="controls">
         <h1>GUEST</h1>
+        <div id ="player1" class="playerinfo">
+            <h4 id="playername1">Test</h4>
+            <h5 id="player1score">0</h5>
+        </div>
+        <div id ="player2" class="playerinfo">
+            <h4 id="playername2">Test</h4>
+            <h5 id="player2score">0</h5>
+        </div>
     </div>
     
 

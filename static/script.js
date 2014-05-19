@@ -39,7 +39,9 @@ var messageHandler = function(message){
 		case "boardSetup":
 			opponentSetup(message);
 			break;
-		
+		case "yourTurn":
+			yourTurn(message);
+			break;
 		default:
 			console.log("Something went wrong");
 			break;
@@ -54,7 +56,10 @@ function hostSetup(message){
 	var deck = createDeck();
 	showDeck(deck);
 	layout_cards();
+	$('#player1').addClass('playingplayer');
+	$('#player2').removeClass('playingplayer');
 	clickSetter();
+	setnames();
 	var board = $(".sideBox").html()
 	console.log(board);
 	var jsonMessage = {"messageType":"boardSetup","content":board}
@@ -63,6 +68,15 @@ function hostSetup(message){
 
 function opponentSetup(message){
 	$(".sideBox").html(message.content);
-	// clickSetter();
+	$('.flip').get(0).play();
+	setTimeout(checkmatch, 700);
 }
 
+
+
+function yourTurn(message){
+	$(".sideBox").html(message.content);
+	$('#player1').addClass('playingplayer');
+	$('#player2').removeClass('playingplayer');
+	clickSetter();
+}
